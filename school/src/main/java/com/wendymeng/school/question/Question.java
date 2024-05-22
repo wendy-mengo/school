@@ -35,5 +35,5 @@ public class Question {
     private List<Option> options;
 
     //@ManyToOne(fetch=FetchType.LAZY)
-   // private Long examID;
+    private Long examID;
 }
