@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        .center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        h1 {text-align: center;}
+        p {text-align: center;}
+        div {text-align: center;}
+        body {background-color: lavender;}
+    </style>
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <a href="/adminLogin"><p>Admin Login</p></a>
+    <form action="#" th:action="@{/loginStudent}" th:object="${student}" method="post">
+         <table style= "padding: 1em;" class="center">
+                <tr>
+                    <td>StudentID:</td>
+                    <td><input type="number" th:field="*{studentID}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Password:</td>
+                    <td><input type="password" th:field="*{password}" /></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button type="submit">Login</button> </td>
+                </tr>
+         </table>
+    </form>
+</body>
+</html>

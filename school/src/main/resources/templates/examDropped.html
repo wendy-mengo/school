@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {background-color: lavender;}
+        h1 {text-align: center;}
+        p {text-align: center;}
+        div {text-align: center;}
+    </style>
+     <title>Exam Dropped</title>
+</head>
+<body th:object="${student}">
+    <h1>Successfully dropped the exam</h1>
+    <a th:href="'/examSchedule/' + ${student.studentID}"><p>Return to the Exam Schedule</p></a>
+</body>
+</html>

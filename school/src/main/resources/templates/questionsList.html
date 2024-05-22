@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        .center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+         table, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+        }
+        h1 {text-align: center;}
+        p {text-align: center;}
+        div {text-align: center;}
+        body {background-color: lavender;}
+    </style>
+    <title>Questions List</title>
+</head>
+<body>
+<h1>Exam Schedule</h1>
+<table style="border: solid; padding: 1em;" class="center">
+        <thead>
+            <tr style="border: 1px solid black;">
+                <th>Question ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="question : ${listQuestions}">
+                <td><a th:href="'/question/' + ${question.questionID}">
+                    <button th:text="'Question ' + ${question.questionID}"></button>
+                    </a>
+            </tr>
+        </tbody>
+</table>
+
+</body>
+</html>

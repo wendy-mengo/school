@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        .center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        body {background-color: lavender;}
+    </style>
+    <title>Add Exam</title>
+</head>
+<body>
+    <h1 style="text-align: center;">Add Exam</h1>
+    <form action="#" th:action="@{/adding}" th:object="${exam}" method="post">
+         <table style= "padding: 1em;" class="center">
+                <tr>
+                    <td>Enter the student's ID:</td>
+                    <td><input type="number" th:field="*{studentID}"></td>
+                </tr>
+                <tr>
+                    <td>Choose the exam subject:</td>
+                    <td><input type="radio" id="MATH" value="MATH" th:field="*{subject}" checked />
+                        <label for="MATH">MATH</label>
+                    <input type="radio" id="ENGLISH" value = "ENGLISH" th:field="*{subject}" />
+                        <label for="ENGLISH">ENGLISH</label>
+                    <input type="radio" id="SOCIALSTUDIES" value="SOCIALSTUDIES" th:field="*{subject}" />
+                        <label for="SOCIALSTUDIES">SOCIAL STUDIES</label>
+                    <input type="radio" id="SCIENCE" value="SCIENCE" th:field="*{subject}" />
+                        <label for="SCIENCE">SCIENCE</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>When is the exam due:</td>
+                    <td><input type="datetime-local" th:field="*{dueDate}" /></td>
+                </tr>
+                <tr>
+                    <td>What is the score for this exam:</td>
+                    <td><input type="number" min="0" max="100" th:field="*{score}" /></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button type="submit">Save</button> </td>
+                </tr>
+         </table>
+    </form>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {background-color: lavender;}
+        h1 {text-align: center;}
+        p {text-align: center;}
+        div {text-align: center;}
+        .center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+    <title>Question</title>
+</head>
+<body>
+    <h1 th:text="'Question ' + ${question.questionID}"></h1>
+    <form action="#" th:action="@{/question}" th:object="${answer}" method="post">
+         <table style= "padding: 1em;" class="center">
+                <tr>
+                    <td> <p th:text="${question.description} + '?'"> </p></td>
+                   <!-- <td><input type="radio" id="MATH" value="MATH" th:field="*{choice}" checked />
+                        <label for="MATH">MATH</label>
+                    <input type="radio" id="ENGLISH" value = "ENGLISH" th:field="*{choice}" />
+                        <label for="ENGLISH">ENGLISH</label>
+                    <input type="radio" id="SOCIALSTUDIES" value="SOCIALSTUDIES" th:field="*{choice}" />
+                        <label for="SOCIALSTUDIES">SOCIAL STUDIES</label>
+                    <input type="radio" id="SCIENCE" value="SCIENCE" th:field="*{choice}" />
+                        <label for="SCIENCE">SCIENCE</label>
+                    </td>-->
+                </tr>
+         </table>
+    </form>
+</body>
+</html>

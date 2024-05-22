@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {background-color: lavender;}
+        h1 {text-align: center;}
+        p {text-align: center;}
+        div {text-align: center;}
+        table, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+        }
+        .center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+    <title>Choose Student to Drop</title>
+</head>
+<body>
+    <h1>Choose Student to Drop</h1>
+         <table style= "padding: 1em;" class="center">
+             <thead>
+                 <tr style="border: 1px solid black;">
+                    <th>Student ID</th>
+                     <th>Select</th>
+                 </tr>
+             </thead>
+             <tbody>
+                <tr th:each="student : ${listStudents}">
+                    <td th:text="${student.studentID}">Student ID</td>
+                    <td ><a th:href="'/studentDropped/' + ${student.studentID}"> Select</a></td>
+
+                </tr>
+             </tbody>
+         </table>
+</body>
+</html>

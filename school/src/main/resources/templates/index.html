@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {background-color: lavender;}
+        h1 {text-align: center;}
+        p {text-align: center;}
+        div {text-align: center;}
+
+    </style>
+    <title>School System</title>
+</head>
+<body th:object="${student}">
+    <h1>Exam Schedule</h1>
+    <a th:href="'/examSchedule/' + ${student.studentID}"><p>Click here!</p></a>
+</body>
+</html>

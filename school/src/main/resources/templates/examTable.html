@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta  name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+     <style>
+        body {background-color: lavender;}
+        h1 {text-align: center;}
+        p {text-align: center;}
+        div {text-align: center;}
+        h1   {color: black;}
+        p    {color: black;}
+        table, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+        }
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(
+                254,
+                126,
+                126,
+                0.7
+            );
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .content {
+            position: relative;
+            background: white;
+            padding: 1em 2em;
+            border-radius: 4px;
+        }
+
+        .modal:target {
+            display: flex;
+        }
+         .center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+</style>
+    <title>Exam Schedule</title>
+</head>
+<body th:object="${student}">
+<h1>Exam Schedule</h1>
+    <br/><br/>
+    <table style="border: solid; padding: 1em;" class="center">
+        <thead>
+            <tr style="border: 1px solid black;">
+                <th>Exam ID</th>
+                <th>Subject</th>
+                <th>Due Date</th>
+                <th>Score</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="exam : ${listExams}">
+                <td th:text="${exam.examid}">Exam ID</td>
+                <td th:text="${exam.subject}">Subject</td>
+                <td th:text="${exam.dueDate}">Due Date</td>
+                <td th:text="${exam.score}">Score</td>
+                <td>&nbsp; <a th:href="'/takeExam/' + ${exam.examid}">
+                    <button type ="button">Take Exam</button>
+                    </a>
+                    &nbsp;&nbsp;&nbsp;
+                   <!--<a th:href="'/dropExam/' + ${exam.examid}">Drop Exam</a> &nbsp;-->
+                   <button onclick=showDropDialog()>Drop Exam</button>
+                    <dialog id="drop-dialog">
+                        <h2>Drop Exam</h2>
+                        <p>Are you sure you wish to drop an exam?</p>
+                        <a th:href="'/dropExam/' + ${student.studentID}">Drop Exam</a>
+                        &nbsp;&nbsp;&nbsp;
+                        <a th:href="'/examSchedule/' + ${student.studentID}">Cancel</a>
+                    </dialog>
+
+                    <script>
+                        const dialog = document.getElementById("drop-dialog")
+                        function showDropDialog(){
+                            dialog.showModal()
+                        }
+                    </script>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
