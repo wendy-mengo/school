@@ -12,7 +12,7 @@ public class Option {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long optionID;
-    @ManyToOne(fetch=FetchType.LAZY)
-    private Question question;
+    //@ManyToOne(fetch=FetchType.LAZY)
+    private Long questionID;
     private String option;
 }

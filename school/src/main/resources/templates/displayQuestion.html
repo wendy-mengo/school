@@ -18,17 +18,11 @@
     <h1 th:text="'Question ' + ${question.questionID}"></h1>
     <form action="#" th:action="@{/question}" th:object="${answer}" method="post">
          <table style= "padding: 1em;" class="center">
-                <tr>
+                 <tr th:each="option : ${options}">
                     <td> <p th:text="${question.description} + '?'"> </p></td>
-                   <!-- <td><input type="radio" id="MATH" value="MATH" th:field="*{choice}" checked />
-                        <label for="MATH">MATH</label>
-                    <input type="radio" id="ENGLISH" value = "ENGLISH" th:field="*{choice}" />
-                        <label for="ENGLISH">ENGLISH</label>
-                    <input type="radio" id="SOCIALSTUDIES" value="SOCIALSTUDIES" th:field="*{choice}" />
-                        <label for="SOCIALSTUDIES">SOCIAL STUDIES</label>
-                    <input type="radio" id="SCIENCE" value="SCIENCE" th:field="*{choice}" />
-                        <label for="SCIENCE">SCIENCE</label>
-                    </td>-->
+                   <td><input type="radio" id="option1" name="answer" value="option1">
+                       <label for="option1" th:text="${option}"></label><br>
+                    </td>
                 </tr>
          </table>
     </form>

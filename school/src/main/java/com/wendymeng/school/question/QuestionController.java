@@ -1,5 +1,7 @@
 package com.wendymeng.school.question;
 
+import com.wendymeng.school.option.Option;
+import com.wendymeng.school.option.OptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,10 +16,15 @@ public class QuestionController {
      @Autowired
      private QuestionService questionService;
 
+     @Autowired
+     private OptionService optionService;
+
      @RequestMapping("/question/{id}")
      private String questionPage(@PathVariable Long id, Model model){
          Question question = questionService.get(id);
          model.addAttribute("question", question);
+         List<Option> options = optionService.listSpecificOptions(id);
+         model.addAttribute("options", options);
 
          return "displayQuestion";
      }

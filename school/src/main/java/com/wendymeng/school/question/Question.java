@@ -21,7 +21,7 @@ public class Question {
     @Enumerated(EnumType.STRING)
     private Subject type;
 
-    private Boolean multipleChoice;
+    private Boolean correct;
     private Integer gradeLevel;
 
     @Column(columnDefinition = "ENUM('EASY', 'MEDIUM', 'DIFFICULT')")
@@ -29,11 +29,11 @@ public class Question {
     private Level hardLevel;
 
     private String description;
-    private Long answer;
+    private Option answer;
 
-    @OneToMany(mappedBy = "question")
+    @OneToMany(mappedBy = "questionID")
     private List<Option> options;
 
-    //@ManyToOne(fetch=FetchType.LAZY)
-    private Long examID;
+    @ManyToMany(mappedBy = "questions")
+    private List<Exam> exams;
 }

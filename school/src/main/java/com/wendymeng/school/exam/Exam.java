@@ -21,7 +21,7 @@ public class Exam {
     @Enumerated(EnumType.STRING)
     private Subject subject;
     private LocalDateTime dueDate;
-    @OneToMany(mappedBy = "examID")
+    @ManyToMany
     private List<Question> questions;
     //@ManyToOne(fetch=FetchType.LAZY)
     private Long studentID;
