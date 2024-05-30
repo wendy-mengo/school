@@ -14,15 +14,18 @@
     </style>
     <title>Question</title>
 </head>
-<body>
+<body  th:object="${question}">
     <h1 th:text="'Question ' + ${question.questionID}"></h1>
-    <form action="#" th:action="@{/question}" th:object="${answer}" method="post">
+    <form action="#" th:action="@{/question}" th:object="${chosenChoice}" method="post">
          <table style= "padding: 1em;" class="center">
-                 <tr th:each="option : ${options}">
-                    <td> <p th:text="${question.description} + '?'"> </p></td>
-                   <td><input type="radio" id="option1" name="answer" value="option1">
-                       <label for="option1" th:text="${option}"></label><br>
+              <td> <p th:text="${question.description} + '?'"> </p></td>
+                 <tr th:each="choice : ${choices}">
+                   <td><input type="radio" id="choice1" name="answer" value="choice1" th:field="*{description}"/>
+                       <label for="choice1" th:text="${choice.description}"></label><br>
                     </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button type="submit">Submit</button> </td>
                 </tr>
          </table>
     </form>

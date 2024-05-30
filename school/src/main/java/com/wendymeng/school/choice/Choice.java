@@ -1,18 +1,17 @@
-package com.wendymeng.school.option;
+package com.wendymeng.school.choice;
 
-import com.wendymeng.school.question.Question;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
+@Entity(name = "choice")
 @Getter
 @Setter
-public class Option {
+public class Choice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long optionID;
+    private Long choiceID;
     //@ManyToOne(fetch=FetchType.LAZY)
     private Long questionID;
-    private String option;
+    private String description;
 }

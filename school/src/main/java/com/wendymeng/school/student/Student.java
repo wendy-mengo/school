@@ -3,7 +3,6 @@ package com.wendymeng.school.student;
 import com.wendymeng.school.exam.Exam;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 
