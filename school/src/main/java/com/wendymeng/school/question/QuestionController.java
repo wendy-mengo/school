@@ -33,9 +33,9 @@ public class QuestionController {
 
          return "displayQuestion";
      }
-      @RequestMapping(value = "/question", method = RequestMethod.POST)
-    public String submitQuestion(@ModelAttribute("chosenChoice") Choice choice, @ModelAttribute("question") Question question){
-        if (questionService.questionAnswered(choice, question)){
+      @RequestMapping(value = "/question/{questionID}", method = RequestMethod.POST)
+    public String submitQuestion(@PathVariable Long questionID, @ModelAttribute("chosenChoice") Choice chosenChoice){
+        if (questionService.questionAnswered(chosenChoice, questionID)){
             return "questionCorrect";
         }
         return "questionIncorrect";

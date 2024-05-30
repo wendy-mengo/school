@@ -27,7 +27,8 @@ public class QuestionService {
         return questionRepository.findById(id).get();
     }
 
-    public boolean questionAnswered(Choice choice, Question question) {
+    public boolean questionAnswered(Choice choice, Long questionID) {
+        Question question = questionRepository.findById(questionID).get();
         List<Choice> choices = question.getChoices();
         for(Choice maybe : choices){
             if(Objects.equals(maybe.getDescription(), choice.getDescription())){

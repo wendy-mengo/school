@@ -52,6 +52,11 @@ public class ExamController {
         return "questionsList";
     }
 
+    @RequestMapping("/nextQuestion")
+    public String nextQuestion(){
+        return "";
+    }
+
 //    @RequestMapping("/addExam")
 //    public String addExamPage(Model model){
 //        Exam exam = new Exam();

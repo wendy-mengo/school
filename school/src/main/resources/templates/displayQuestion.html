@@ -16,12 +16,12 @@
 </head>
 <body  th:object="${question}">
     <h1 th:text="'Question ' + ${question.questionID}"></h1>
-    <form action="#" th:action="@{/question}" th:object="${chosenChoice}" method="post">
+    <form action="#" th:action="@{'/question/' + ${question.questionID}}" th:object="${chosenChoice}" method="post">
          <table style= "padding: 1em;" class="center">
               <td> <p th:text="${question.description} + '?'"> </p></td>
                  <tr th:each="choice : ${choices}">
-                   <td><input type="radio" id="choice1" name="answer" value="choice1" th:field="*{description}"/>
-                       <label for="choice1" th:text="${choice.description}"></label><br>
+                   <td><input type="radio" th:id="${choice.description}" name="answer" th:value="${choice.description}" th:field="*{description}"/>
+                       <label th:for="${choice.description}" th:text="${choice.description}"></label><br>
                     </td>
                 </tr>
                 <tr>
