@@ -15,8 +15,8 @@
     <title>Question</title>
 </head>
 <body  th:object="${question}">
-    <h1 th:text="'Question ' + ${question.questionID}"></h1>
-    <form action="#" th:action="@{'/question/' + ${question.questionID}}" th:object="${chosenChoice}" method="post">
+    <h1 th:object = "${exam}" th:text="'Question ' + ${question.questionID}"></h1>
+    <form action="#" th:action="@{'/' + ${exam.examid} + '/question/' + ${question.questionID}}" th:object="${chosenChoice}" method="post">
          <table style= "padding: 1em;" class="center">
               <td> <p th:text="${question.description} + '?'"> </p></td>
                  <tr th:each="choice : ${choices}">

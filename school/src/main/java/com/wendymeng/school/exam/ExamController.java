@@ -1,6 +1,9 @@
 package com.wendymeng.school.exam;
 
+import com.wendymeng.school.choice.Choice;
+import com.wendymeng.school.choice.ChoiceService;
 import com.wendymeng.school.question.Question;
+import com.wendymeng.school.question.QuestionService;
 import com.wendymeng.school.student.Student;
 import com.wendymeng.school.student.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,12 @@ public class ExamController {
 
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private ChoiceService choiceService;
+
+    @Autowired
+    private QuestionService questionService;
 
     @RequestMapping("/examSchedule/{studentID}")
     public String viewHomePage(Model model, @PathVariable Long studentID){
@@ -47,14 +56,34 @@ public class ExamController {
 
     @RequestMapping("/takeExam/{id}")
     public String takeExamPage(Model model, @PathVariable Long id){
+        model.addAttribute("exam", service.get(id));
         List<Question> listQuestions = service.initializeExam(id);
         model.addAttribute("listQuestions", listQuestions);
         return "questionsList";
     }
 
-    @RequestMapping("/nextQuestion")
-    public String nextQuestion(){
-        return "";
+    @RequestMapping("{examID}/nextQuestion/")
+    public String nextQuestion(@PathVariable Long examID, Model model){
+        model.addAttribute("exam", service.get(examID));
+        Question question= service.findNextQuestion(examID);
+        if (question == null){
+            service.calcScore(examID);
+            return "testDone";
+        }
+        model.addAttribute("question", question);
+        List<Choice> choices = choiceService.listSpecificOptions(question.getQuestionID());
+         questionService.initializeQuestion(choices, question);
+         model.addAttribute("choices", choices);
+         model.addAttribute("chosenChoice", new Choice());
+        return "displayQuestion";
+    }
+
+    @RequestMapping("/wrongQuestionList/{examID}")
+    public String wrongQuestions(@PathVariable Long examID, Model model){
+        List<Question> wrongQuestions = service.wrongQuestionsFinder(examID);
+        model.addAttribute("listQuestions", wrongQuestions);
+        model.addAttribute("exam", service.get(examID));
+        return "wrongQuestionsList";
     }
 
 //    @RequestMapping("/addExam")

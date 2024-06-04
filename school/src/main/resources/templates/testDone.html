@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <style>
+     <style>
         body {background-color: lavender;}
         h1 {text-align: center;}
         p {text-align: center;}
@@ -12,10 +12,11 @@
             margin-right: auto;
         }
     </style>
-    <title>Question Incorrect</title>
+    <title>Test Done</title>
 </head>
-<body th:object="${question}">
-    <h1 th:object="${exam}">Sorry! You are incorrect.</h1>
-    <a th:href="'/' + ${exam.examid} + '/nextQuestion/'"><p>Next Question</p></a>
+<body th:object="${exam}">
+    <h1>Congrats! You have finished the exam!</h1>
+     <a th:href="'/examSchedule/' + ${exam.studentID}"><p>Click here to return to the exam schedule</p></a>
+    <a th:href="'/wrongQuestionList/' + ${exam.examid}"><p>Click here to redo your wrong questions</p></a>
 </body>
 </html>

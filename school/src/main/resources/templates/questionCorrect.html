@@ -14,8 +14,8 @@
     </style>
     <title>Question Correct</title>
 </head>
-<body>
-    <h1>Good job!You are correct!</h1>
-    <a href="/nextQuestion"><p>Next Question</p></a>
+<body th:object="${question}" >
+    <h1 th:object="${exam}">Good job! You are correct!</h1>
+    <a th:href="'/' + ${exam.examid} + '/nextQuestion/'"><p>Next Question</p></a>
 </body>
 </html>

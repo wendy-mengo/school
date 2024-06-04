@@ -20,8 +20,14 @@ public class Exam {
     @Enumerated(EnumType.STRING)
     private Subject subject;
     private LocalDateTime dueDate;
+
     @ManyToMany
-    private List<Question> questions;
+    @JoinTable(
+      name = "test",
+      joinColumns = @JoinColumn(name = "examid"),
+      inverseJoinColumns = @JoinColumn(name = "questionID"))
+     private List<Question> questions;
+
     //@ManyToOne(fetch=FetchType.LAZY)
     private Long studentID;
 
