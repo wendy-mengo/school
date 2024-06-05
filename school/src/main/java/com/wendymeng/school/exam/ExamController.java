@@ -30,6 +30,9 @@ public class ExamController {
     @RequestMapping("/examSchedule/{studentID}")
     public String viewHomePage(Model model, @PathVariable Long studentID){
         Student student = studentService.get(studentID);
+        for(Exam exam:student.getListExams()){
+            service.calcScore(exam.getExamid());
+            }
         model.addAttribute("student", student);
         List<Exam> listExams = service.listStudentExam(studentID);
         model.addAttribute("listExams", listExams);
@@ -67,7 +70,6 @@ public class ExamController {
         model.addAttribute("exam", service.get(examID));
         Question question= service.findNextQuestion(examID);
         if (question == null){
-            service.calcScore(examID);
             return "testDone";
         }
         model.addAttribute("question", question);
@@ -83,6 +85,9 @@ public class ExamController {
         List<Question> wrongQuestions = service.wrongQuestionsFinder(examID);
         model.addAttribute("listQuestions", wrongQuestions);
         model.addAttribute("exam", service.get(examID));
+        if (wrongQuestions == null){
+            return "backExamSched";
+        }
         return "wrongQuestionsList";
     }
 

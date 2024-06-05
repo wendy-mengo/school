@@ -17,5 +17,6 @@ public class Admin {
     private Long adminID;
     @Email
     private String email;
+
     private String password;
 }

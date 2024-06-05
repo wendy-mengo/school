@@ -18,7 +18,7 @@ public class Student {
     private Long studentID;
     @Email
     private String emailAddress;
-   // @NotEmpty
+
     private String password;
     private LocalDateTime lastExam;
     @OneToMany(mappedBy = "studentID")

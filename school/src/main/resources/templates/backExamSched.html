@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {background-color: lavender;}
+        h1 {text-align: center;}
+        p {text-align: center;}
+        div {text-align: center;}
+
+    </style>
+    <title>You're done!</title>
+</head>
+<body th:object="${exam}">
+    <h1>You have no questions left to do!</h1>
+    <a th:href="'/examSchedule/' + ${exam.studentID}"><p>Return to the exam schedule.</p></a>
+</body>
+</html>

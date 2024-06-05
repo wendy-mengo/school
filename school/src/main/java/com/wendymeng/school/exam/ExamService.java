@@ -3,6 +3,7 @@ package com.wendymeng.school.exam;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.wendymeng.school.question.Level;
 import com.wendymeng.school.question.Question;
 import com.wendymeng.school.question.QuestionRepository;
 import jakarta.transaction.Transactional;
@@ -49,10 +50,25 @@ public class ExamService {
         Exam exam = get(id);
         List<Question> allQuestions = questionRepository.findAll();
         List<Question> rightQuestions = new ArrayList<>();
+        List<Question> mediumQuestions = new ArrayList<>();
+        List<Question> hardQuestions = new ArrayList<>();
         for(Question question : allQuestions){
             if(question.getType() == exam.getSubject()){
-                rightQuestions.add(question);
+                question.setCount(0);
+                if(question.getHardLevel() == Level.EASY){
+                    rightQuestions.add(question);
+                }else if(question.getHardLevel() == Level.MEDIUM){
+                    mediumQuestions.add(question);
+                }else{
+                    hardQuestions.add(question);
+                }
             }
+        }
+        for(Question question: mediumQuestions){
+            rightQuestions.add(question);
+        }
+        for(Question question:hardQuestions){
+            rightQuestions.add(question);
         }
         exam.setQuestions(rightQuestions);
         for(Question question : exam.getQuestions()){
@@ -90,10 +106,14 @@ public class ExamService {
         float count = 0.0F;
         float total = 0.0F;
         float score = 0.0F;
+
         for(Question question:exam.getQuestions()){
             total++;
-            if(question.getCorrect()){
-                count++;
+            if (question.getCorrect() == null){
+
+            }
+            else if(question.getCorrect()){
+                count = count + 1/question.getCount().floatValue();
             }
         }
         score = count/total * 100;

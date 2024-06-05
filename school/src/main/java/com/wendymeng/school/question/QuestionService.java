@@ -30,6 +30,7 @@ public class QuestionService {
     public boolean questionAnswered(Choice choice, Long questionID) {
         Question question = questionRepository.findById(questionID).get();
         List<Choice> choices = question.getChoices();
+        question.setCount(question.getCount()+1);
         for(Choice maybe : choices){
             if(Objects.equals(maybe.getDescription(), choice.getDescription())){
                 if(Objects.equals(question.getAnswerID(), maybe.getChoiceID())){
