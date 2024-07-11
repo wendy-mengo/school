@@ -30,6 +30,19 @@ class AdminServiceSpec extends spock.lang.Specification {
     }
 
     def "Save"() {
+        given:
+        Exam exam = new Exam()
+
+        when:
+        adminService.save(exam)
+
+        then:
+        1 * mockExamRepository.save(exam)
+        0 * _
+
+        and:
+        exam == mockExamRepository.existsById(exam.examid)
+
     }
 
     def "ListAllStudents"() {
@@ -48,6 +61,18 @@ class AdminServiceSpec extends spock.lang.Specification {
     }
 
     def "TestSave"() {
+        given:
+        Student student = new Student()
+
+        when:
+        adminService.save(student)
+
+        then:
+        1 * mockStudentRepository.save(student)
+        0 * _
+
+        and:
+        student == mockStudenetRepository.existsById(student.studentID)
     }
 
     def "Get"() {
@@ -83,5 +108,18 @@ class AdminServiceSpec extends spock.lang.Specification {
     }
 
     def "DeleteStudent"() {
+        given:
+        Student student = new Student()
+
+        when:
+        adminService.deleteStudent(student.studentID)
+
+        then:
+        1 * mockStudentRepository.delete(mockStudentRepository.findById(student.studentID).get())
+        0 * _
+
+        and:
+        false == mockAdminRepository.existsById(student.studentID)
+
     }
 }
