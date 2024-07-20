@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -22,38 +23,41 @@ public class AdminService {
     @Autowired
     private StudentRepository studentRepository;
 
-    public List<Exam> listAllExams(){
+    public List<Exam> listAllExams() {
         return examRepository.findAll();
     }
 
-    public void save(Exam exam){
+    public void save(Exam exam) {
         examRepository.save(exam);
     }
 
-    public List<Student> listAllStudents(){
+    public List<Student> listAllStudents() {
         return studentRepository.findAll();
     }
 
-    public void save(Student student){
+    public void save(Student student) {
         studentRepository.save(student);
     }
 
-    public Admin get(Long id){
+    public Admin get(Long id) {
         return adminRepository.findById(id).get();
     }
 
-    public boolean checkAdminPassword(Long id, String password){
-        if(!adminRepository.existsById(id)){
+    public boolean checkAdminPassword(Long id, String password) {
+        if (!adminRepository.existsById(id)) {
             return false;
         }
         Admin admin = get(id);
-        if (Objects.equals(password, admin.getPassword())){
+        if (Objects.equals(password, admin.getPassword())) {
             return true;
         }
         return false;
     }
 
-    public void deleteStudent(Long id){
-        studentRepository.delete(studentRepository.findById(id).get());
+    public void deleteStudent(Long id) {
+        Optional<Student> student = studentRepository.findById(id);
+        if (student != null) {
+            studentRepository.delete(student.get());
+        }
     }
 }

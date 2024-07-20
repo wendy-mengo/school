@@ -4,13 +4,16 @@ import com.wendymeng.school.exam.Exam
 import com.wendymeng.school.exam.ExamRepository
 import com.wendymeng.school.student.Student
 import com.wendymeng.school.student.StudentRepository
+import spock.lang.Specification
 
-class AdminServiceSpec extends spock.lang.Specification {
+class AdminServiceSpec extends Specification {
     StudentRepository mockStudentRepository = Mock()
     ExamRepository mockExamRepository = Mock()
     AdminRepository mockAdminRepository = Mock()
     AdminService adminService = new AdminService(
-            studentRepository: mockStudentRepository
+            studentRepository: mockStudentRepository,
+            examRepository: mockExamRepository,
+            adminRepository: mockAdminRepository
     )
 
     def "ListAllExams"() {
@@ -18,7 +21,7 @@ class AdminServiceSpec extends spock.lang.Specification {
         Exam exam = new Exam()
 
         when:
-        List<Exam> exams = adminService.ListAllExams()
+        List<Exam> exams = adminService.listAllExams()
 
         then:
         1 * mockExamRepository.findAll() >> [exam]
@@ -26,7 +29,6 @@ class AdminServiceSpec extends spock.lang.Specification {
 
         and:
         exams == [exam]
-
     }
 
     def "Save"() {
@@ -39,10 +41,6 @@ class AdminServiceSpec extends spock.lang.Specification {
         then:
         1 * mockExamRepository.save(exam)
         0 * _
-
-        and:
-        exam == mockExamRepository.existsById(exam.examid)
-
     }
 
     def "ListAllStudents"() {
@@ -50,7 +48,7 @@ class AdminServiceSpec extends spock.lang.Specification {
         Student student = new Student()
 
         when:
-        List<Student> students = adminService.ListAllStudents()
+        List<Student> students = adminService.listAllStudents()
 
         then:
         1 * mockStudentRepository.findAll() >> [student]
@@ -70,44 +68,40 @@ class AdminServiceSpec extends spock.lang.Specification {
         then:
         1 * mockStudentRepository.save(student)
         0 * _
-
-        and:
-        student == mockStudenetRepository.existsById(student.studentID)
     }
 
     def "Get"() {
         given:
-        Long admin = new Admin()
+        Admin admin = new Admin()
 
         when:
         Admin admin1 = adminService.get(admin.adminID)
 
         then:
-        1 * mockAdminRepository.findById(admin.adminID).get() >> [admin]
+        1 * mockAdminRepository.findById(admin.adminID) >> Optional.of(admin)
         0 * _
 
         and:
-        admin1 == [admin]
+        admin1 == admin
     }
 
     def "CheckAdminPassword"() {
         given:
-        Admin admin = new Admin()
+        Admin admin = new Admin(adminID: 12345, password: "abcd123")
 
         when:
         boolean correct = adminService.checkAdminPassword(admin.adminID, admin.password)
 
         then:
-        1 * !mockAdminRepository.existsById(admin.adminID) >> [false]
-        2 * Objects.equals(admin.password, adminService.get(admin.adminID).getPassword()) >> [true]
+        1 * mockAdminRepository.existsById(admin.adminID) >> true
+        1 * mockAdminRepository.findById(admin.adminID) >> Optional.of(admin)
         0 * _
 
         and:
-        correct == [true]
-
+        correct
     }
 
-    def "DeleteStudent"() {
+    def "DeleteStudent -- HAPPY PATH"() {
         given:
         Student student = new Student()
 
@@ -115,11 +109,19 @@ class AdminServiceSpec extends spock.lang.Specification {
         adminService.deleteStudent(student.studentID)
 
         then:
-        1 * mockStudentRepository.delete(mockStudentRepository.findById(student.studentID).get())
+        1 * mockStudentRepository.findById(student.studentID) >> Optional.of(student)
+        1 * mockStudentRepository.delete(student)
         0 * _
+    }
+    def "DeleteStudent -- Cannot find"() {
+        given:
+        long studentID = 124335
 
-        and:
-        false == mockAdminRepository.existsById(student.studentID)
+        when:
+        adminService.deleteStudent(studentID)
 
+        then:
+        1 * mockStudentRepository.findById(studentID) >> null
+        0 * _
     }
 }
