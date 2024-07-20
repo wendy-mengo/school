@@ -70,7 +70,7 @@ class AdminServiceSpec extends Specification {
         0 * _
     }
 
-    def "Get"() {
+    def "Get -- HAPPY PATH"() {
         given:
         Admin admin = new Admin()
 
@@ -83,6 +83,21 @@ class AdminServiceSpec extends Specification {
 
         and:
         admin1 == admin
+    }
+
+    def "Get -- SAD PATH"() {
+        given:
+        long adminID = 12345
+
+        when:
+        Admin admin1 = adminService.get(adminID)
+
+        then:
+        1 * mockAdminRepository.findById(adminID) >> null
+        0 * _
+
+        and:
+        admin1 == null
     }
 
     def "CheckAdminPassword"() {

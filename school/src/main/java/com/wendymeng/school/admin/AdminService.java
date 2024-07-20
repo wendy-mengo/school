@@ -40,7 +40,11 @@ public class AdminService {
     }
 
     public Admin get(Long id) {
-        return adminRepository.findById(id).get();
+        Optional<Admin> admin  = adminRepository.findById(id);
+        if (admin != null){
+            return admin.get();
+        }
+        return null;
     }
 
     public boolean checkAdminPassword(Long id, String password) {
