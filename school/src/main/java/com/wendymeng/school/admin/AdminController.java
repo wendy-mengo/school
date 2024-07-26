@@ -54,39 +54,39 @@ public class AdminController {
     }
 
     @RequestMapping("/addExam")
-    public String addExamPage(Model model){
+    public String addExamPage(Model model) {
         Exam exam = new Exam();
         model.addAttribute("exam", exam);
         return "addExam";
     }
 
     @RequestMapping(value = "/adding", method = RequestMethod.POST)
-    public String addingPage(@ModelAttribute("exam") Exam exam){
+    public String addingPage(@ModelAttribute("exam") Exam exam) {
         examService.save(exam);
         return "examAdded";
     }
 
     @RequestMapping("/adminActions")
-    public String actionPage(){
+    public String actionPage() {
         return "adminActions";
     }
 
     @RequestMapping("/dropExam")
-    public String dropExamPage(Model model){
+    public String dropExamPage(Model model) {
         List<Student> listStudents = adminService.listAllStudents();
         model.addAttribute("listStudents", listStudents);
         return "adminDropExam";
     }
 
     @RequestMapping("/removeStudent")
-    public String dropStudentPage(Model model){
+    public String dropStudentPage(Model model) {
         List<Student> listStudents = adminService.listAllStudents();
         model.addAttribute("listStudents", listStudents);
         return "chooseStudentDrop";
     }
 
     @RequestMapping("/studentDropped/{id}")
-    public String studentDroppedPage(@PathVariable Long id){
+    public String studentDroppedPage(@PathVariable Long id) {
         adminService.deleteStudent(id);
         return "studentDropped";
     }

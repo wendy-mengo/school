@@ -14,14 +14,14 @@ public class ChoiceService {
     @Autowired
     private ChoiceRepository choiceRepository;
 
-    public List<Choice> listSpecificOptions(Long questionID){
-       List<Choice> allChoices = choiceRepository.findAll();
-       List<Choice> specificChoices = new ArrayList<>();
-       for(Choice choice : allChoices){
-           if(questionID == choice.getQuestionID()){
-               specificChoices.add(choice);
-           }
-       }
-       return specificChoices;
+    public List<Choice> listSpecificOptions(Long questionID) {
+        List<Choice> allChoices = choiceRepository.findAll();
+        List<Choice> specificChoices = new ArrayList<>();
+        for (Choice choice : allChoices) {
+            if (questionID == choice.getQuestionID()) {
+                specificChoices.add(choice);
+            }
+        }
+        return specificChoices;
     }
 }

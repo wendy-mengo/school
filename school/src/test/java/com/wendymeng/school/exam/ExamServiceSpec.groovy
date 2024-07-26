@@ -94,12 +94,12 @@ class ExamServiceSpec extends Specification {
         //given:
 
 
-      //  when:
+        //  when:
 
 
-     //   then:
-     //   1 *
-     //   0 * _
+        //   then:
+        //   1 *
+        //   0 * _
     }
 
     def "Get -- HAPPY PATH"() {
@@ -144,6 +144,7 @@ class ExamServiceSpec extends Specification {
         1 * mockExamRepository.delete(exam)
         0 * _
     }
+
     def "Delete -- Cannot find"() {
         given:
         long examid = 124335
@@ -155,7 +156,8 @@ class ExamServiceSpec extends Specification {
         1 * mockExamRepository.findById(examid) >> null
         0 * _
     }
-    def "wrongQuestionsFinder -- none wrong"(){
+
+    def "wrongQuestionsFinder -- none wrong"() {
         given:
         long examid = 1234
         Question question = new Question(correct: true, exams: [examid])
@@ -172,7 +174,8 @@ class ExamServiceSpec extends Specification {
         and:
         !questions
     }
-    def "wrongQuestionsFinder -- one wrong"(){
+
+    def "wrongQuestionsFinder -- one wrong"() {
         given:
         long examid = 1234
         Question question = new Question(correct: false, exams: [examid])
@@ -193,10 +196,10 @@ class ExamServiceSpec extends Specification {
 
     }
 
-    def "findNextQuestion -- exists"(){
+    def "findNextQuestion -- exists"() {
         given:
         Long examid = 1234
-        Question question = new Question(exams: [examid],correct: null)
+        Question question = new Question(exams: [examid], correct: null)
         Exam exam = new Exam(examid: examid, questions: [question])
 
 
@@ -210,10 +213,11 @@ class ExamServiceSpec extends Specification {
         and:
         question1 == question
     }
-    def "findNextQuestion -- doesn't exist"(){
+
+    def "findNextQuestion -- doesn't exist"() {
         given:
         Long examid = 1234
-        Question question = new Question(exams: [examid],correct: true)
+        Question question = new Question(exams: [examid], correct: true)
         Exam exam = new Exam(examid: examid, questions: [question])
 
 
@@ -227,22 +231,23 @@ class ExamServiceSpec extends Specification {
         and:
         !question1
     }
-     def "calcScore"(){
+
+    def "calcScore"() {
         given:
         Long examid = 1234
         Question question1 = new Question(exams: [examid], correct: true, count: 1)
         Question question2 = new Question(exams: [examid], correct: false, count: 1)
         Exam exam = new Exam(examid: examid, questions: [question1, question2])
 
-         when:
-         examService.calcScore(examid)
+        when:
+        examService.calcScore(examid)
 
-         then:
-         1 * mockExamRepository.findById(examid) >> Optional.of(exam)
-         1 * mockExamRepository.save(exam)
-         0 * _
+        then:
+        1 * mockExamRepository.findById(examid) >> Optional.of(exam)
+        1 * mockExamRepository.save(exam)
+        0 * _
 
-         and:
-         exam.score == 50.00
-     }
+        and:
+        exam.score == 50.00
+    }
 }

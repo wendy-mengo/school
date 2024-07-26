@@ -40,11 +40,8 @@ public class AdminService {
     }
 
     public Admin get(Long id) {
-        Optional<Admin> admin  = adminRepository.findById(id);
-        if (admin != null){
-            return admin.get();
-        }
-        return null;
+        Optional<Admin> admin = adminRepository.findById(id);
+        return admin.orElse(null);
     }
 
     public boolean checkAdminPassword(Long id, String password) {
@@ -52,16 +49,11 @@ public class AdminService {
             return false;
         }
         Admin admin = get(id);
-        if (Objects.equals(password, admin.getPassword())) {
-            return true;
-        }
-        return false;
+        return Objects.equals(password, admin.getPassword());
     }
 
     public void deleteStudent(Long id) {
         Optional<Student> student = studentRepository.findById(id);
-        if (student != null) {
-            studentRepository.delete(student.get());
-        }
+        student.ifPresent(value -> studentRepository.delete(value));
     }
 }

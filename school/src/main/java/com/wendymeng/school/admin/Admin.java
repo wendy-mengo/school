@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Admin {
-     @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long adminID;
     @Email

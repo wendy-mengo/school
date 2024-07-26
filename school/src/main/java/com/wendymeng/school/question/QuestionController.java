@@ -17,33 +17,34 @@ import java.util.List;
 @Controller
 public class QuestionController {
 
-     @Autowired
-     private QuestionService questionService;
+    @Autowired
+    private QuestionService questionService;
 
-     @Autowired
-     private ChoiceService choiceService;
+    @Autowired
+    private ChoiceService choiceService;
 
-     @Autowired
-     private ExamService examService;
+    @Autowired
+    private ExamService examService;
 
-     @RequestMapping("{examID}/question/{id}")
-     private String questionPage(@PathVariable Long id, Model model, @PathVariable Long examID){
-         model.addAttribute("exam", examService.get(examID));
-         Question question = questionService.get(id);
-         model.addAttribute("question", question);
-         List<Choice> choices = choiceService.listSpecificOptions(id);
-         questionService.initializeQuestion(choices, question);
-         model.addAttribute("choices", choices);
-         model.addAttribute("chosenChoice", new Choice());
+    @RequestMapping("{examID}/question/{id}")
+    private String questionPage(@PathVariable Long id, Model model, @PathVariable Long examID) {
+        model.addAttribute("exam", examService.get(examID));
+        Question question = questionService.get(id);
+        model.addAttribute("question", question);
+        List<Choice> choices = choiceService.listSpecificOptions(id);
+        questionService.initializeQuestion(choices, question);
+        model.addAttribute("choices", choices);
+        model.addAttribute("chosenChoice", new Choice());
 
 
-         return "displayQuestion";
-     }
-      @RequestMapping(value = "{examID}/question/{questionID}", method = RequestMethod.POST)
-    public String submitQuestion(@PathVariable Long questionID, @ModelAttribute("chosenChoice") Choice chosenChoice, Model model, @PathVariable Long examID){
+        return "displayQuestion";
+    }
+
+    @RequestMapping(value = "{examID}/question/{questionID}", method = RequestMethod.POST)
+    public String submitQuestion(@PathVariable Long questionID, @ModelAttribute("chosenChoice") Choice chosenChoice, Model model, @PathVariable Long examID) {
         model.addAttribute("question", questionService.get(questionID));
         model.addAttribute("exam", examService.get(examID));
-         if (questionService.questionAnswered(chosenChoice, questionID)){
+        if (questionService.questionAnswered(chosenChoice, questionID)) {
             return "questionCorrect";
         }
         return "questionIncorrect";

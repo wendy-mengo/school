@@ -18,33 +18,30 @@ public class QuestionService {
     @Autowired
     private ChoiceRepository choiceRepository;
 
-    public List<Question> listAll(){
+    public List<Question> listAll() {
         return questionRepository.findAll();
     }
 
 
-    public Question get(Long id){
+    public Question get(Long id) {
         return questionRepository.findById(id).get();
     }
 
     public boolean questionAnswered(Choice choice, Long questionID) {
         Question question = questionRepository.findById(questionID).get();
         List<Choice> choices = question.getChoices();
-        question.setCount(question.getCount()+1);
-        for(Choice maybe : choices){
-            if(Objects.equals(maybe.getDescription(), choice.getDescription())){
-                if(Objects.equals(question.getAnswerID(), maybe.getChoiceID())){
-                    question.setCorrect(true);
-                    return true;
-                }
-                question.setCorrect(false);
-                return false;
-            }
+        question.setCount(question.getCount() + 1);
+        if (Objects.equals(question.getAnswerID(), choice.getChoiceID())) {
+            question.setCorrect(true);
+            return true;
         }
+        question.setCorrect(false);
         return false;
     }
 
-    public void initializeQuestion(List<Choice> choices, Question question){
-        question.setChoices(choices);
-    }
+
+
+public void initializeQuestion(List<Choice> choices, Question question) {
+    question.setChoices(choices);
+}
 }

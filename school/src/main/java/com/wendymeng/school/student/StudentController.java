@@ -22,11 +22,11 @@ public class StudentController {
     }
 
     @RequestMapping(value = "/loginStudent", method = RequestMethod.POST)
-    public String loginPage(@ModelAttribute("student") Student student){
-        if (studentService.checkPassword(student.getStudentID(), student.getPassword())){
+    public String loginPage(@ModelAttribute("student") Student student) {
+        if (studentService.checkPassword(student.getStudentID(), student.getPassword())) {
             return "index";
         }
-        return "login";
+        return "WrongLogin";
     }
 
 //    @RequestMapping("/addStudent")

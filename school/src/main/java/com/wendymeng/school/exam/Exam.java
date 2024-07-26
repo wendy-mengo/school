@@ -23,10 +23,10 @@ public class Exam {
 
     @ManyToMany
     @JoinTable(
-      name = "test",
-      joinColumns = @JoinColumn(name = "examid"),
-      inverseJoinColumns = @JoinColumn(name = "questionID"))
-     private List<Question> questions;
+            name = "test",
+            joinColumns = @JoinColumn(name = "examid"),
+            inverseJoinColumns = @JoinColumn(name = "questionID"))
+    private List<Question> questions;
 
     //@ManyToOne(fetch=FetchType.LAZY)
     private Long studentID;

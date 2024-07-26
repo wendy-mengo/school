@@ -128,6 +128,7 @@ class AdminServiceSpec extends Specification {
         1 * mockStudentRepository.delete(student)
         0 * _
     }
+
     def "DeleteStudent -- Cannot find"() {
         given:
         long studentID = 124335

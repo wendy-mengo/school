@@ -109,9 +109,7 @@ public class ExamService {
 
         for (Question question : exam.getQuestions()) {
             total++;
-            if (question.getCorrect() == null) {
-
-            } else if (question.getCorrect()) {
+            if (question.getCorrect()) {
                 count = count + 1 / question.getCount().floatValue();
             }
         }
