@@ -27,13 +27,13 @@ public class ExamService {
     }
 
     public List<Exam> listStudentExam(Long id) {
-        List<Exam> listExams = new ArrayList<>();
-        for (Exam exam : examRepository.findAll()) {
-            if (Objects.equals(exam.getStudentID(), id)) {
-                listExams.add(exam);
-            }
-        }
-        return listExams;
+//        List<Exam> listExams = new ArrayList<>();
+//        for (Exam exam : examRepository.findAll()) {
+//            if (Objects.equals(exam.getStudentID(), id)) {
+//                listExams.add(exam);
+//            }
+//        }
+        return examRepository.findByStudentID(id);
 
     }
 

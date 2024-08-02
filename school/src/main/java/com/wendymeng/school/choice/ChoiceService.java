@@ -15,13 +15,13 @@ public class ChoiceService {
     private ChoiceRepository choiceRepository;
 
     public List<Choice> listSpecificOptions(Long questionID) {
-        List<Choice> allChoices = choiceRepository.findAll();
-        List<Choice> specificChoices = new ArrayList<>();
-        for (Choice choice : allChoices) {
-            if (questionID == choice.getQuestionID()) {
-                specificChoices.add(choice);
-            }
-        }
-        return specificChoices;
+//        List<Choice> allChoices = choiceRepository.findAll();
+//        List<Choice> specificChoices = new ArrayList<>();
+//        for (Choice choice : allChoices) {
+//            if (questionID == choice.getQuestionID()) {
+//                specificChoices.add(choice);
+//            }
+//        }
+        return choiceRepository.findByQuestionID(questionID);
     }
 }
