@@ -5,6 +5,7 @@ import com.wendymeng.school.exam.ExamRepository;
 import com.wendymeng.school.student.Student;
 import com.wendymeng.school.student.StudentRepository;
 import jakarta.transaction.Transactional;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.apache.logging.log4j.Logger;
@@ -28,7 +29,7 @@ public class AdminService {
     @Autowired
     private StudentRepository studentRepository;
 
-    private static Logger LOGGER;
+    private static Logger LOGGER =  LogManager.getLogger();
 
 
     public List<Exam> listAllExams() {
